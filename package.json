@@ -1,0 +1,23 @@
+{
+  "name": "library-mgmt-system",
+  "version": "1.0.0",
+  "description": "This system allows adding, updating, and removing books and tracks who has borrowed which book. It is a web server created in node.js and mongoDb for the database collections",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stan581994/library-mgmt-system.git"
+  },
+  "author": "Steven Tan <stan581994@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stan581994/library-mgmt-system/issues"
+  },
+  "homepage": "https://github.com/stan581994/library-mgmt-system#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

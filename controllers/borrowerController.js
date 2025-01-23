@@ -1,4 +1,5 @@
 const mongodb = require("../data/database");
+const { validationResult } = require("express-validator");
 const { ObjectId } = require("mongodb");
 
 const getAllBorrowers = async (req, res) => {
@@ -16,6 +17,10 @@ const getAllBorrowers = async (req, res) => {
 
 const createBorrower = async (req, res) => {
   //#swagger.tags = ['Borrowers']
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const newBorrower = {
     name: req.body.name,
     email: req.body.email,
@@ -40,6 +45,10 @@ const createBorrower = async (req, res) => {
 };
 
 const updateBorrower = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   //#swagger.tags = ['Borrowers']
   const borrowerId = ObjectId.createFromHexString(req.params.id);
   const updateBorrower = {

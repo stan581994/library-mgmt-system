@@ -1,5 +1,6 @@
 const mongodb = require("../data/database");
 const { ObjectId } = require("mongodb");
+const { validationResult } = require("express-validator");
 
 const getAllBooks = async (req, res) => {
   //#swagger.tags = ['Books']
@@ -12,6 +13,10 @@ const getAllBooks = async (req, res) => {
 
 const createBook = async (req, res) => {
   //#swagger.tags = ['Books']
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const newBook = {
     title: req.body.title,
     author: req.body.author,
@@ -40,6 +45,11 @@ const createBook = async (req, res) => {
 const updateBook = async (req, res) => {
   //#swagger.tags = ['Books']
   const bookId = ObjectId.createFromHexString(req.params.id);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const updateBook = {
     title: req.body.title,
     author: req.body.author,

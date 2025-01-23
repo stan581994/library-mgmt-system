@@ -1,0 +1,293 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Library Mgmt API",
+    "description": "A simple Express library Mgmt API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Hello World"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/books/": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "author": {
+                  "example": "any"
+                },
+                "ISBN": {
+                  "example": "any"
+                },
+                "genre": {
+                  "example": "any"
+                },
+                "publishedYear": {
+                  "example": "any"
+                },
+                "copiesAvailable": {
+                  "example": "any"
+                },
+                "borrowedCount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "author": {
+                  "example": "any"
+                },
+                "ISBN": {
+                  "example": "any"
+                },
+                "genre": {
+                  "example": "any"
+                },
+                "publishedYear": {
+                  "example": "any"
+                },
+                "copiesAvailable": {
+                  "example": "any"
+                },
+                "borrowedCount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/borrowers/": {
+      "get": {
+        "tags": [
+          "Borrowers"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Borrowers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "borrowedBooks": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/borrowers/{id}": {
+      "put": {
+        "tags": [
+          "Borrowers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "borrowedBooks": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Borrowers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

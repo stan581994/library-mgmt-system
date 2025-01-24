@@ -5,8 +5,8 @@ const doc = {
     title: "Library Mgmt API",
     description: "A simple Express library Mgmt API",
   },
-  host: "localhost:3000",
-  schemes: ["https", "http"],
+  host: "https://library-mgmt-system-evmj.onrender.com",
+  schemes: ["https"],
 };
 
 const outputFile = "./swagger_output.json";

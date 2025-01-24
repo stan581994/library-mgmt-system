@@ -5,7 +5,7 @@ const doc = {
     title: "Library Mgmt API",
     description: "A simple Express library Mgmt API",
   },
-  host: "https://library-mgmt-system-evmj.onrender.com",
+  host: "library-mgmt-system-evmj.onrender.com",
   schemes: ["https"],
 };
 

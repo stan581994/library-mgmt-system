@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const mongodb = require("./data/database");
+const { connectDB } = require("./data/database");
 const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 3000;
@@ -20,11 +20,13 @@ app.use((req, res, next) => {
 
 app.use("/", require("./routes"));
 
-mongodb.initDb((err) => {
+// Connect to MongoDB
+connectDB((err) => {
   if (err) {
-    console.log(err);
+    console.error("Failed to connect to MongoDB", err);
     process.exit(1);
   }
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

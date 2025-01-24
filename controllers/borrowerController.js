@@ -1,18 +1,16 @@
-const mongodb = require("../data/database");
+// filepath: /c:/Users/steven.tan.LTPHDIPF23JCE8/Documents/BYU/Webservices/week3-4-project/library-mgmt-system/controllers/borrowerController.js
 const { validationResult } = require("express-validator");
-const { ObjectId } = require("mongodb");
+const Borrower = require("../models/borrower");
 
 const getAllBorrowers = async (req, res) => {
   //#swagger.tags = ['Borrowers']
-  const result = await mongodb
-    .getDatabase()
-    .db()
-    .collection("borrowers")
-    .find();
-  result.toArray().then((borrower) => {
+  try {
+    const borrowers = await Borrower.find();
     res.setHeader("Content-Type", "application/json");
-    res.status(200).send(borrower);
-  });
+    res.status(200).send(borrowers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const createBorrower = async (req, res) => {
@@ -21,36 +19,29 @@ const createBorrower = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const newBorrower = {
+  const newBorrower = new Borrower({
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
     address: req.body.address,
     borrowedBooks: req.body.borrowedBooks,
-  };
+  });
 
-  const result = await mongodb
-    .getDatabase()
-    .db()
-    .collection("borrowers")
-    .insertOne(newBorrower);
-
-  if (result.acknowledged) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(result.error || "An error occurred while creating the borrower");
+  try {
+    const result = await newBorrower.save();
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
 const updateBorrower = async (req, res) => {
+  //#swagger.tags = ['Borrowers']
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  //#swagger.tags = ['Borrowers']
-  const borrowerId = ObjectId.createFromHexString(req.params.id);
+
   const updateBorrower = {
     name: req.body.name,
     email: req.body.email,
@@ -59,37 +50,31 @@ const updateBorrower = async (req, res) => {
     borrowedBooks: req.body.borrowedBooks,
   };
 
-  const result = await mongodb
-    .getDatabase()
-    .db()
-    .collection("borrowers")
-    .updateOne({ _id: borrowerId }, { $set: updateBorrower });
-
-  if (result.modifiedCount == 1) {
-    res.status(200).send();
-  } else {
-    res
-      .status(500)
-      .json(result.error || "An error occurred while updating the borrower");
+  try {
+    const result = await Borrower.findByIdAndUpdate(
+      req.params.id,
+      updateBorrower,
+      { new: true }
+    );
+    if (!result) {
+      return res.status(404).json({ error: "Borrower not found" });
+    }
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
 const deleteBorrower = async (req, res) => {
   //#swagger.tags = ['Borrowers']
-  const borrowerId = ObjectId.createFromHexString(req.params.id);
-
-  const result = await mongodb
-    .getDatabase()
-    .db()
-    .collection("borrowers")
-    .deleteOne({ _id: borrowerId });
-
-  if (result.deletedCount == 1) {
+  try {
+    const result = await Borrower.findByIdAndDelete(req.params.id);
+    if (!result) {
+      return res.status(404).json({ error: "Borrower not found" });
+    }
     res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(result.error || "An error occurred while deleting the borrower");
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 

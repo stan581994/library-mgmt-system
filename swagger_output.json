@@ -5,7 +5,7 @@
     "description": "A simple Express library Mgmt API",
     "version": "1.0.0"
   },
-  "host": "https://library-mgmt-system-evmj.onrender.com",
+  "host": "library-mgmt-system-evmj.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"

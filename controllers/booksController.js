@@ -58,6 +58,9 @@ const updateBook = async (req, res) => {
     }
     res.status(200).json(result);
   } catch (err) {
+    if (err instanceof mongoose.CastError) {
+      return res.status(400).json({ error: "Invalid book ID" });
+    }
     res.status(500).json({ error: err.message });
   }
 };
